@@ -6,13 +6,11 @@ import random
 
 def instructions():
     """Tells the user the rules of the game."""
-    # add something to make it look nicer
     print('Welcome to the "Hundred" game.\nThe aim of the game is to be the '
           'first to reach a score of 100.\nEach turn you will roll a six '
           'sided die and add the result to\nyour score. However, if you roll '
           'a 1 your score for that turn will\nbe 0. You will play against the'
           ' computer who will roll first.')
-    #  use the %s method to add the nicer layout
 
 
 def computer_move(computer_score, human_score):
@@ -21,8 +19,8 @@ def computer_move(computer_score, human_score):
     print(' \nThis is the computer\'s turn:')
     roll_total = 0
     if computer_score >= human_score:
-        while roll_total < 11:
-            roll_score = roll_calc(roll())
+        while roll_total < 11:  # plays it slightly more safe
+            roll_score = roll()
             if roll_score == 0:
                 print('The computer\'s score at the end of the turn is 0.')
                 return 0
@@ -30,20 +28,9 @@ def computer_move(computer_score, human_score):
         print('The computer\'s score at the end of the turn is '
               + str(roll_total) + '.')
         return roll_total
-    # elif computer_score < human_score - human_score * 0.3:
-    #     while (computer_score + roll_total < human_score - human_score * 0.25
-    #            or roll_total > 11):
-    #         roll_score = roll_calc(roll())
-    #         if roll_score == 0:
-    #             print('The computer\'s score at the end of the turn is 0.')
-    #             return 0
-    #         roll_total += roll_score
-    #     print('The computer\'s score at the end of the turn is '
-    #           + str(roll_total) + '.')
-    #     return roll_total
     else:
-        while roll_total < 17:
-            roll_score = roll_calc(roll())
+        while roll_total < 17:  # aggressive but still gets results
+            roll_score = roll()
             if roll_score == 0:
                 print('The computer\'s score at the end of the turn is 0.')
                 return 0
@@ -51,24 +38,6 @@ def computer_move(computer_score, human_score):
         print('The computer\'s score at the end of the turn is '
               + str(roll_total) + '.')
         return roll_total
-
-    # num_of_rolls = random.randint(1, 6)
-    # while num_of_rolls != 0:
-    #     roll_score = roll_calc(roll())
-    #     if roll_score == 0:
-    #         return roll_score
-    #         print('The computer\'s score at the end of the turn is 0.')
-    #     roll_total += roll_score
-    #     num_of_rolls -= 1
-    # print('The computer\'s score at the end of the turn is '
-    #       + str(roll_total) + '.')
-    # return roll_total
-
-
-# def computer_ai(computer_score, human_score):
-# This works out if True or False for next roll
-# def computer_ai_setting?
-# This works out if it'll play agrressive, conservative, or safe
 
 
 def human_move(computer_score, human_score):
@@ -88,7 +57,7 @@ def human_move(computer_score, human_score):
     new_turn = True
     roll_total = 0
     while new_turn:
-        roll_score = roll_calc(roll())
+        roll_score = roll()
         if roll_score == 0:
             print('The score at the end of your turn is 0.')
             return roll_score
@@ -98,17 +67,13 @@ def human_move(computer_score, human_score):
     return roll_total
 
 
-def roll_calc(roll):
-    """If roll equals 1, score equals 0. Otherwise roll score equals roll."""
-    print(roll)
-    if roll == 1:
+def roll():
+    """Calculates the roll's score based on a random number from 1 to 6."""
+    roll = random.randint(1, 6)
+    print('The roll was: ' + str(roll))
+    if roll == 1:  # based on game parameters a roll of 1 == 0
         return 0
     return roll
-
-
-def roll():
-    """Returns a random number in the range 1 to 6, inclusive."""
-    return random.randint(1, 6)
 
 
 def ask_yes_or_no(prompt):
